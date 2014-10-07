@@ -1,0 +1,20 @@
+CFLAGS=-Wall -g -DDEBUG
+
+all: uprintf.app
+
+OBJS=main.o\
+    uprintf.o\
+
+uprintf.app: $(OBJS)
+    cc $(OBJS) -o uprintf.app 
+
+main.o: main.h main.c
+    cc $(CFLAGS) -c main.c
+
+uprintf.o: uprintf.h uprintf.c
+    cc $(CFLAGS) -c uprintf.c
+
+clean: 
+    rm *.o *.exe *.app
+
+

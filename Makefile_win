@@ -1,0 +1,19 @@
+CC=cl
+CFLAGS=/Zi /Od /c
+
+LINK=link
+LFLAGS=/NOLOGO /DEBUG 
+
+all: uprintf.exe
+
+uprintf.obj : uprintf.h uprintf.c
+	$(CC) $(CFLAGS) uprintf.c
+
+main.obj : main.h main.c
+	$(CC) $(CFLAGS) main.c
+
+uprintf.exe: uprintf.obj main.obj
+    $(LINK) $(LFLAGS) $** /OUT:$@
+
+clean:
+    del *.exe *.obj *.ilk *.manifest *.pdb
