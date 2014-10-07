@@ -13,8 +13,8 @@ static const char hex_table[] = "0123456789ABCDEF";
 
 void
 uPrintfPutChar(
-	char 		c
-	);
+    char 		c
+    );
 
 static pfuPrintfPutChar_T gpfuPrintfPutChar = uPrintfPutChar;
 
@@ -79,19 +79,19 @@ uPrintfPutStringWithPad(
 
 void
 uPrintfPutLong(
-	uint32   Number,
-	int16    Radix,
+    uint32   Number,
+    int16    Radix,
     int16    npad,
     int16    cpad
-	)
+    )
 {
-	char szBuff[16];
-	char *p;
+    char szBuff[16];
+    char *p;
     int len;
 
     /* We only support two radix values */
-   	if (Radix == 10 || Radix == 16 || Radix == -10)
-	{
+    if (Radix == 10 || Radix == 16 || Radix == -10)
+    {
         p = szBuff;
 
         /* Are we dealing with a signed value */
@@ -106,16 +106,16 @@ uPrintfPutLong(
             }
         }
 
-	    /* The buffer is being reversed filled. */
-		do 
+        /* The buffer is being reversed filled. */
+        do 
         {
-			*p = hex_table[Number % Radix];
+            *p = hex_table[Number % Radix];
 
             p = p + 1;
 
-			Number = Number / Radix;
-			
-		} while (Number);
+            Number = Number / Radix;
+            
+        } while (Number);
 
         /* Output pad if needed */		
         if (npad)
@@ -133,14 +133,14 @@ uPrintfPutLong(
             }
         }
 
-	    /* Output the string in correct order */
-		for ( ; p != szBuff; )
-		{
+        /* Output the string in correct order */
+        for ( ; p != szBuff; )
+        {
             p = p - 1;
 
             gpfuPrintfPutChar(*p);
         }
-	}
+    }
 }
 
 /* 
@@ -167,9 +167,9 @@ uPrintf(
 {
     int16 npad;
     int16 cpad;
-	va_list args;
-	
-	va_start(args, fmt);
+    va_list args;
+    
+    va_start(args, fmt);
 
     for ( ; *fmt; )
     {
@@ -185,11 +185,11 @@ uPrintf(
                 cpad = *fmt;
 
                 fmt = fmt + 1;
-			}
+            }
     
             for ( ; *fmt && (*fmt >= '0') && (*fmt <= '9'); fmt = fmt + 1)
             {   
- 	        	npad = npad * 10;
+                npad = npad * 10;
                 npad = npad + *fmt - '0';
             }
 
@@ -252,8 +252,8 @@ uPrintf(
                 }
                 break;
 
-			case 0:
-				break;
+            case 0:
+                break;
 
             default:
                 break;
@@ -264,11 +264,11 @@ uPrintf(
             gpfuPrintfPutChar(*fmt);
         }
 
-		if (*fmt)
-		{
-			fmt = fmt + 1;	
-		}
+        if (*fmt)
+        {
+            fmt = fmt + 1;	
+        }
     }
 
-	va_end(args);
+    va_end(args);
 }
